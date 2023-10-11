@@ -13,7 +13,6 @@ namespace Recipies
 {
     public class Recipe:IJsonConvertible
     {
-        // private ArrayList steps = new ArrayList();
         public Product FinalProduct { get; set; }
 
         [JsonInclude]
