@@ -13,21 +13,24 @@ namespace Recipies
     public class Program
     {
         private static ArrayList productCatalog = new ArrayList();
-
         private static ArrayList equipmentCatalog = new ArrayList();
 
         public static void Main(string[] args)
         {
             PopulateCatalogs();
 
-            Recipe recipe = new Recipe();
-            recipe.FinalProduct = GetProduct("Café con leche");
-            recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
-            recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
+            Product product = ProductCreator.CreateProduct("Café", 100);
+            Equipment equipment = EquipmentCreator.CreateEquipment("Cafetera", 1000);
+
+            Recipe recipe = new RecipeBuilder()
+                .WithFinalProduct(GetProduct("Café con leche"))
+                .WithStep(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120)
+                .WithStep(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60)
+                .Build();
+
 
             Console.WriteLine(recipe.ConvertToJson());
         }
-
         private static void PopulateCatalogs()
         {
             AddProductToCatalog("Café", 100);
